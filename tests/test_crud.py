@@ -75,7 +75,8 @@ def test_atualizar_regra(svc):
     )
     assert resp.status_code == 200
     query, values = svc.cursor.execute.call_args.args
-    assert "rules = %s" in query and "is_enabled = %s" in query
+    assert "rules = %s" in query
+    assert "is_enabled = %s" in query
     assert values[1:] == (False, "novo-checkout")
     svc.conn.commit.assert_called_once()
 
