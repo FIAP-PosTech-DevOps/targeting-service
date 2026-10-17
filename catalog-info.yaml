@@ -1,0 +1,29 @@
+# Entidade deste repositório no Backstage (toggle-master-backstage).
+# As anotações ligam as abas do portal: pipelines (GitHub Actions), pods
+# (Kubernetes, nos clusters no ar), deploy por ambiente (Argo CD) e docs
+# (TechDocs, a partir do mkdocs.yml).
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: targeting-service
+  description: Regras de segmentação (porcentagem, atributos) de cada flag.
+  tags:
+    - python
+  annotations:
+    github.com/project-slug: FIAP-PosTech-DevOps/targeting-service
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-namespace: targeting-service
+    backstage.io/kubernetes-label-selector: app=targeting-service
+    argocd/app-name: targeting-service
+  links:
+    - url: https://github.com/FIAP-PosTech-DevOps/toggle-master-gitops/tree/main/apps/targeting-service
+      title: Manifestos (GitOps)
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: group:grupo-fase3
+  system: togglemaster
+  dependsOn:
+    - component:default/auth-service
+    - resource:default/targeting-db
